@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="product-page">
+        <div class="gallery-container">
+            <div class="main-image-container">
+                <button id="prev-button" class="nav-button" aria-label="Previous Image">◀</button>
+                <img id="main-image" class="main-image" src="" alt="Main Image" loading="lazy">
+                <button id="next-button" class="nav-button" aria-label="Next Image">▶</button>
+                <div id="index-indicator" class="index-indicator"></div>
+            </div>
+            <div id="thumbnail-gallery" class="thumbnail-gallery"></div>
+        </div>
+
+        <div class="product-info">
+            <h1 id="product-title">Product Title</h1>
+            <p id="product-description">Product description goes here...</p>
+            <div class="product-price" id="product-price">$99.99</div>
+            <div id="seller-info" class="seller-info">
+                <span>Seller:</span> <span id="seller-name">Seller Name</span>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="tags-section">
+            <div id="tags" class="tags"></div>
+        </div>
+
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h3>Customer Reviews</h3>
+                <div class="review-summary" id="review-summary">★★★★★ (3 reviews)</div>
+            </div>
+            <div id="latest-review" class="latest-review"></div>
+            <button id="show-seller-reviews" class="show-seller-reviews">Reviews for this seller</button>
+            <div id="reviews-list" class="reviews-list"></div>
+            <button id="show-review-form" class="show-review-form">Add a Review</button>
+            <form id="review-form" class="review-form">
+                <input type="text" id="review-username" placeholder="Username" required>
+                <input type="text" id="review-lastname" placeholder="Lastname" required>
+                <textarea id="review-text" placeholder="Your review" required></textarea>
+                <input type="number" id="review-stars" min="1" max="5" placeholder="Rating (1-5)" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div id="more-from-shop" class="more-from-shop">
+            <h3>More from this shop</h3>
+            <div class="product-list"></div>
+        </div>
+
+        <div id="you-may-like" class="you-may-like">
+            <h3>You may also like</h3>
+            <div class="product-list"></div>
+        </div>
+    </div>
+
+    <div id="popup" class="popup">
+        <span id="popup-close" class="popup-close" aria-label="Close">&times;</span>
+        <button id="popup-prev-button" class="popup-nav-button" aria-label="Previous Image">◀</button>
+        <img id="popup-image" class="popup-image" src="" alt="Popup Image" loading="lazy">
+        <button id="popup-next-button" class="popup-nav-button" aria-label="Next Image">▶</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

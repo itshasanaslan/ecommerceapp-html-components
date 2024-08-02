@@ -1,0 +1,246 @@
+@model List<ChatVM>
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Chat Application</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+      <style>
+          .chat-container {
+              display: flex;
+              height: 100vh;
+          }
+          .chat-sidebar {
+              width: 25%;
+              border-right: 1px solid #ddd;
+              overflow-y: auto;
+          }
+          .chat-main {
+              width: 75%;
+              display: flex;
+              flex-direction: column;
+          }
+          .chat-header {
+              padding: 1rem;
+              border-bottom: 1px solid #ddd;
+          }
+          .chat-body {
+              flex: 1;
+              padding: 1rem;
+              overflow-y: auto;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+          }
+          .chat-footer {
+              padding: 1rem;
+              border-top: 1px solid #ddd;
+              display: flex;
+              align-items: center;
+              position: sticky;
+              bottom: 0;
+              background-color: #fff;
+              z-index: 1000;
+          }
+          .chat-message {
+              margin-bottom: 1rem;
+              max-width: 60%;
+          }
+          .chat-message.sent {
+              align-self: flex-end;
+              text-align: right;
+          }
+          .chat-message.received {
+              align-self: flex-start;
+              text-align: left;
+          }
+          .message-content {
+              background-color: #f1f1f1;
+              border-radius: 0.5rem;
+              padding: 0.5rem 1rem;
+              display: inline-block;
+              position: relative;
+          }
+          .message-content.sent {
+              background-color: #007bff;
+              color: #fff;
+          }
+          .message-content.received {
+              background-color: #f1f1f1;
+              color: #000;
+          }
+          .message-content small {
+              display: block;
+              margin-top: 0.5rem;
+          }
+          .unread {
+              background-color: #e9f5ff;
+              font-weight: bold;
+          }
+          .chat-body .spinner-border {
+              align-self: center;
+          }
+          .chat-footer input[type="file"] {
+              display: none;
+          }
+          .chat-footer .custom-file-label {
+              cursor: pointer;
+          }
+          .chat-body .placeholder {
+              color: #888;
+          }
+          @media (max-width: 576px) {
+              .chat-message .message-content {
+                  max-width: 80%;
+              }
+              .chat-container {
+                  flex-direction: column;
+              }
+              .chat-sidebar {
+                  width: 100%;
+                  height: 30%;
+              }
+              .chat-main {
+                  width: 100%;
+                  height: 70%;
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="chat-container">
+          <div class="chat-sidebar">
+              <!-- Sidebar Content -->
+              <div class="list-group" id="chatList">
+                  @foreach (var chat in Model)
+                  {
+                      <a href="#" class="list-group-item list-group-item-action" data-chat-id="@chat.Chat">
+                          <div class="d-flex justify-content-between">
+                              <h5 class="mb-1">@chat.Chat</h5>
+                              <small>2:30 PM</small>
+                          </div>
+                          <p class="mb-1">@chat.LastMessage</p>
+                          <small class="text-muted me-2">Unread</small>
+                      </a>
+                  }
+              </div>
+          </div>
+          <div class="chat-main">
+              <div class="chat-header">
+                  <!-- Chat Header Content -->
+                  <h5 id="chatHeader">Select a chat to start messaging</h5>
+              </div>
+              <div class="chat-body">
+                  <!-- Placeholder or Loading Spinner -->
+                  <div id="placeholderMessage" class="placeholder">Click on a chat to see messages</div>
+                  <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
+                      <span class="visually-hidden">Loading...</span>
+                  </div>
+              </div>
+              <div class="chat-footer">
+                  <!-- Chat Footer Content -->
+                  <input type="text" class="form-control" id="messageInput" placeholder="Type a message" disabled>
+                  <label for="fileInput" class="btn btn-outline-secondary mx-2 custom-file-label">
+                      <i class="bi bi-paperclip"></i>
+                  </label>
+                  <input type="file" id="fileInput" class="form-control-file" disabled>
+                  <button class="btn btn-primary" id="sendButton" disabled>Send</button>
+              </div>
+          </div>
+      </div>
+      
+      <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
+  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+          document.addEventListener('DOMContentLoaded', () => {
+              const sendButton = document.getElementById('sendButton');
+              const messageInput = document.getElementById('messageInput');
+              const chatBody = document.querySelector('.chat-body');
+              const notificationSound = document.getElementById('notificationSound');
+              const fileInput = document.getElementById('fileInput');
+              const chatList = document.getElementById('chatList');
+              const chatHeader = document.getElementById('chatHeader');
+              const placeholderMessage = document.getElementById('placeholderMessage');
+              const loadingSpinner = document.getElementById('loadingSpinner');
+  
+              const sendMessage = () => {
+                  const message = messageInput.value.trim();
+                  if (message) {
+                      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                      const messageHtml = `
+                          <div class="chat-message sent">
+                              <div class="message-content sent" title="${currentTime}">
+                                  <p>${message}</p>
+                                  <small class="text-muted">${currentTime}</small>
+                              </div>
+                          </div>
+                      `;
+                      chatBody.insertAdjacentHTML('beforeend', messageHtml);
+                      messageInput.value = '';
+                      chatBody.scrollTop = chatBody.scrollHeight;
+                      notificationSound.play();
+                  }
+              };
+  
+              sendButton.addEventListener('click', sendMessage);
+  
+              messageInput.addEventListener('keypress', (e) => {
+                  if (e.key === 'Enter') {
+                      sendMessage();
+                  }
+              });
+  
+              const loadMessages = (chatId) => {
+                  loadingSpinner.style.display = 'block';
+                  messageInput.disabled = true;
+                  fileInput.disabled = true;
+                  sendButton.disabled = true;
+                  chatBody.innerHTML = '';
+  
+                  fetch(`/Chat/Messages/${chatId}`)
+                      .then(response => response.json())
+                      .then(messages => {
+                          loadingSpinner.style.display = 'none';
+                          if (messages.length === 0) {
+                              placeholderMessage.textContent = 'This chat is empty. Start the conversation!';
+                              chatBody.appendChild(placeholderMessage);
+                          } else {
+                              messages.forEach(msg => {
+                                  const messageHtml = `
+                                      <div class="chat-message ${msg.type}">
+                                          <div class="message-content ${msg.type}" title="${msg.timestamp}">
+                                              <p>${msg.content}</p>
+                                              <small class="text-muted">${msg.timestamp}</small>
+                                          </div>
+                                      </div>
+                                  `;
+                                  chatBody.insertAdjacentHTML('beforeend', messageHtml);
+                              });
+                              chatBody.scrollTop = chatBody.scrollHeight;
+                          }
+                          messageInput.disabled = false;
+                          fileInput.disabled = false;
+                          sendButton.disabled = false;
+                      });
+              };
+  
+              chatList.addEventListener('click', (event) => {
+                  const chatItem = event.target.closest('.list-group-item');
+                  if (chatItem) {
+                      const chatId = chatItem.getAttribute('data-chat-id');
+                      chatHeader.textContent = chatItem.querySelector('h5').textContent;
+                      loadMessages(chatId);
+                  }
+              });
+  
+              placeholderMessage.textContent = 'Click on a chat to see messages';
+          });
+      </script>
+  </body>
+  </html>
+  

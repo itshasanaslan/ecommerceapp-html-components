@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 20px;
+        }
+
+        .navbar-top {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF5A1F;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            text-decoration: none;
+        }
+
+        .categories-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: #333;
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .categories-btn i {
+            margin-right: 5px;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            max-width: 700px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .search-btn {
+            padding: 10px 15px;
+            background-color: #FF5A1F;
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+        }
+
+        .navbar-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            border-top: 1px solid #ddd;
+            gap: 10px;
+        }
+
+        .navbar-link {
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .navbar-link:hover {
+            color: #FF5A1F;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .icon-link {
+            font-size: 30px;
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icon-link:hover {
+            color: #FF5A1F;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        #categories-dropdown {
+            top: 50px;
+            left: 0;
+        }
+
+        #cart-dropdown {
+            top: 50px;
+            right: 0;
+        }
+
+        #profile-dropdown {
+            top: 50px;
+            right: 10px;
+        }
+
+        #profile-dropdown p {
+            padding: 8px 12px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        #profile-dropdown p:hover {
+            background-color: #f0f0f0;
+        }
+
+        .mock-data {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .search-results {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar-left,
+            .search-container,
+            .navbar-right,
+            .navbar-center {
+                width: 100%;
+            }
+
+            .navbar-center, .navbar-right {
+                justify-content: center;
+            }
+
+            .navbar-link, .icon-link {
+                margin: 5px;
+            }
+
+            .dropdown {
+                width: 100%;
+                left: 0;
+                right: 0;
+                top: 60px;
+                box-shadow: none;
+                border: none;
+                border-top: 1px solid #ddd;
+            }
+
+            .categories-btn {
+                align-items: end;
+            }
+
+            #categories-dropdown,
+            #cart-dropdown,
+            #profile-dropdown {
+                left: 0;
+                right: 0;
+                top: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-top">
+            <div class="navbar-left">
+                <a href="#" class="logo">DigitalBlackMarket</a>
+                <button class="categories-btn" id="categories-btn">
+                    <i class="bi bi-list"></i> Categories
+                </button>
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Search for anything" id="search-input" aria-label="Search">
+                <button class="search-btn"><span role="img" aria-label="search icon">🔍</span></button>
+                <div class="search-results" id="search-results"></div>
+            </div>
+            <div class="navbar-right">
+                <i class="bi bi-person-fill dropdown-toggle icon-link" id="profile-btn" aria-label="Profile"></i>
+                <i class="bi bi-bell icon-link" aria-label="Notifications"></i>
+                <i class="bi bi-heart icon-link" aria-label="Favorites"></i>
+                <i class="bi bi-cart icon-link" id="cart-btn" aria-label="Cart">
+                    <span class="cart-badge">2</span>
+                </i>
+            </div>
+        </div>
+        <div class="navbar-center">
+            <a href="#" class="navbar-link">Top products here</a>
+        </div>
+    </nav>
+    <div class="dropdown" id="categories-dropdown">
+        <div class="row">
+            <div class="col">
+                <p class="mock-data">Electronics</p>
+                <p class="mock-data">Fashion</p>
+                <p class="mock-data">Home & Garden</p>
+                <p class="mock-data">Toys</p>
+                <p class="mock-data">Sports</p>
+                <p class="mock-data">Automotive</p>
+            </div>
+            <div class="col">
+                <p class="mock-data">Health & Beauty</p>
+                <p class="mock-data">Baby</p>
+                <p class="mock-data">Books</p>
+                <p class="mock-data">Music</p>
+                <p class="mock-data">Grocery</p>
+            </div>
+        </div>
+    </div>
+    <div class="dropdown" id="cart-dropdown">
+        <p class="mock-data"><strong>Product 1</strong> - $10.99</p>
+        <p class="mock-data"><strong>Product 2</strong> - $24.99</p>
+        <p class="mock-data"><strong>Total:</strong> $35.98</p>
+        <button class="search-btn" style="width: 100%; margin-top: 10px;">Checkout</button>
+    </div>
+    <div class="dropdown" id="profile-dropdown">
+        <p><strong>John Doe</strong></p>
+        <p>Profile</p>
+        <p>Messages</p>
+        <p>Settings</p>
+        <p>Log out</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const categoriesBtn = document.getElementById('categories-btn');
+            const cartBtn = document.getElementById('cart-btn');
+            const profileBtn = document.getElementById('profile-btn');
+            const categoriesDropdown = document.getElementById('categories-dropdown');
+            const cartDropdown = document.getElementById('cart-dropdown');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+
+            categoriesBtn.addEventListener('click', () => {
+                toggleDropdown(categoriesDropdown);
+                hideDropdown(cartDropdown);
+                hideDropdown(profileDropdown);
+            });
+
+            cartBtn.addEventListener('click', () => {
+                toggleDropdown(cartDropdown);
+                hideDropdown(categoriesDropdown);
+                hideDropdown(profileDropdown);
+            });
+
+            profileBtn.addEventListener('click', () => {
+                toggleDropdown(profileDropdown);
+                hideDropdown(categoriesDropdown);
+                hideDropdown(cartDropdown);
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.navbar') && !event.target.closest('.dropdown')) {
+                    hideDropdown(categoriesDropdown);
+                    hideDropdown(cartDropdown);
+                    hideDropdown(profileDropdown);
+                }
+            });
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+                if (query) {
+                    searchResults.style.display = 'block';
+                    searchResults.innerHTML = `
+                        <p class="mock-data">Result for "${query}" 1</p>
+                        <p class="mock-data">Result for "${query}" 2</p>
+                        <p class="mock-data">Result for "${query}" 3</p>
+                    `;
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.search-container')) {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            function toggleDropdown(dropdown) {
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            }
+
+            function hideDropdown(dropdown) {
+                dropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

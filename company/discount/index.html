@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            border: 3px solid #007bff;
+            border-radius: 10px;
+        }
+        .price-info {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .calculated-discount {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Edit Product</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <img src="https://via.placeholder.com/300" alt="Product Image" class="product-image">
+                <div class="price-info">
+                    <p>Old Price: <span id="old-price">$5.00</span></p>
+                    <div class="form-group">
+                        <label for="new-price">New Discount Price ($):</label>
+                        <input type="number" id="new-price" class="form-control" placeholder="Enter new price" min="0.4">
+                    </div>
+                    <div class="form-group">
+                        <label for="discount-percentage">Discount Percentage (%):</label>
+                        <input type="number" id="discount-percentage" class="form-control" placeholder="Enter discount percentage">
+                    </div>
+                    <p>Calculated Discount: <span id="calculated-discount" class="calculated-discount">0%</span></p>
+                    <button class="btn btn-primary" onclick="saveChanges()">Save</button>
+                    <button class="btn btn-secondary" onclick="goBack()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('new-price').addEventListener('input', function() {
+            let oldPrice = 5.00;
+            let newPrice = parseFloat(this.value);
+            if (newPrice < 0.4) {
+                this.value = 0.4;
+                newPrice = 0.4;
+            }
+            let discountPercentage = ((oldPrice - newPrice) / oldPrice) * 100;
+            document.getElementById('discount-percentage').value = discountPercentage.toFixed(2);
+            document.getElementById('calculated-discount').innerText = discountPercentage.toFixed(2) + '%';
+        });
+
+        document.getElementById('discount-percentage').addEventListener('input', function() {
+            let oldPrice = 5.00;
+            let discountPercentage = parseFloat(this.value);
+            let newPrice = oldPrice - (oldPrice * (discountPercentage / 100));
+            if (newPrice < 0.4) {
+                newPrice = 0.4;
+                this.value = ((oldPrice - newPrice) / oldPrice * 100).toFixed(2);
+            }
+            document.getElementById('new-price').value = newPrice.toFixed(2);
+            document.getElementById('calculated-discount').innerText = discountPercentage.toFixed(2) + '%';
+        });
+
+        function saveChanges() {
+            let newPrice = document.getElementById('new-price').value;
+            let discountPercentage = document.getElementById('discount-percentage').value;
+            alert('New Price: $' + newPrice + '\nDiscount Percentage: ' + discountPercentage + '%');
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

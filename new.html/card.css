@@ -1,0 +1,47 @@
+    @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200&display=swap');
+
+
+    .card {
+        overflow: hidden;
+        box-shadow: 10px 10px 53px 0px rgba(0, 0, 0, 0.49);
+    }
+    .card:hover img {
+    filter: blur(1.4px);
+    /*transform: scale(1.5);*/
+    overflow: visible;
+    transition: all 0.3s linear;
+    box-shadow: inset -6px -1px 32px 0px rgba(0, 0, 0, 0.75);
+    }
+    .card:hover .card-bottom {
+    transform: translate(   5px, -50%);
+    transition: all 1s ease;
+    background-color: white;
+    visibility: visible;
+    display: inline;
+    z-index: 20;
+    }
+
+    .card-bottom:hover i{
+        color: red;
+    }
+
+    .card-bottom {
+    position: absolute;
+    z-index: -20;
+    width: 15%;
+    border-radius: 45%;
+    overflow: hidden;
+    top: 5%;
+    right: 10%; /* 50% - 3/4 of icon height */
+    text-align: center;
+    transform: translate(100%, -50%);
+
+    }
+
+    .top-text {
+    font-size: 25px;
+    line-height: 40px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    }
+

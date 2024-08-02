@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .favorite-product {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .favorite-product:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .product-details {
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #007bff;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .product-title:hover {
+            color: #0056b3;
+        }
+
+        .product-price,
+        .seller-name {
+            display: block;
+            margin-top: 5px;
+            font-size: 1rem;
+            color: #28a745;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .product-price:hover,
+        .seller-name:hover {
+            color: #1e7e34;
+        }
+
+        .product-tags {
+            margin-top: 10px;
+        }
+
+        .product-tag {
+            display: inline-block;
+            margin: 2px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            background-color: #f8d7da;
+            color: #721c24;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .product-tag:hover {
+            background-color: #f5c6cb;
+            color: #491217;
+        }
+
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+
+        @media (max-width: 576px) {
+            .favorite-product {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .product-details {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="my-4">Favorites</h1>
+        <div id="favorites-list">
+            <!-- Favorite products will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const favorites = [
+            {
+                id: 1,
+                name: 'Product 1',
+                image: 'https://via.placeholder.com/100',
+                description: 'Description for Product 1',
+                price: '$100',
+                seller: 'Seller 1',
+                tags: ['Electronics', 'New']
+            },
+            {
+                id: 2,
+                name: 'Product 2',
+                image: 'https://via.placeholder.com/100',
+                description: 'Description for Product 2',
+                price: '$200',
+                seller: 'Seller 2',
+                tags: ['Fashion', 'Sale']
+            },
+            {
+                id: 3,
+                name: 'Product 3',
+                image: 'https://via.placeholder.com/100',
+                description: 'Description for Product 3',
+                price: '$150',
+                seller: 'Seller 3',
+                tags: ['Home', 'Popular']
+            },
+        ];
+
+        function renderFavorites() {
+            const favoritesList = document.getElementById('favorites-list');
+            favoritesList.innerHTML = '';
+            favorites.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'favorite-product';
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="product-image" onclick="viewProduct(${product.id})">
+                    <div class="product-details">
+                        <h5 class="product-title" onclick="viewProduct(${product.id})">${product.name}</h5>
+                        <p>${product.description}</p>
+                        <a href="#" class="product-price">${product.price}</a>
+                        <a href="#" class="seller-name">${product.seller}</a>
+                        <div class="product-tags">
+                            ${product.tags.map(tag => `<span class="product-tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromFavorites(${product.id})">Remove</button>
+                `;
+                favoritesList.appendChild(productDiv);
+            });
+        }
+
+        function removeFromFavorites(productId) {
+            const productIndex = favorites.findIndex(product => product.id === productId);
+            if (productIndex > -1) {
+                favorites.splice(productIndex, 1);
+                renderFavorites();
+            }
+        }
+
+        function viewProduct(productId) {
+            alert(`View details for Product ID: ${productId}`);
+        }
+
+        document.addEventListener('DOMContentLoaded', renderFavorites);
+    </script>
+</body>
+
+</html>

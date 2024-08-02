@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="brand-title">
+                <img src="logo.png" alt="Logo" class="logo"> <!-- Logo Placeholder -->
+                DigitalBlackMarket
+         
+            </div>
+            <a href="javascript:void(0);" class="toggle-button" onclick="toggleNavbar()">
+                ☰
+            </a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for anything...">
+            <i class="bi bi-search search-icon"></i>
+        </div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="#" class="sign-in">Sign in</a></li>
+                <li><a href="#"><i class="bi bi-house"></i></a></li>
+                <li><a href="#"><i class="bi bi-envelope"></i></a></li>
+                <li><a href="#"><i class="bi bi-bell"></i></a></li>
+                <li><a href="#"><i class="bi bi-person"></i></a></li>
+                <li><a href="#"><i class="bi bi-gear"></i></a></li>
+                <li>
+                    <a href="javascript:void(0);" class="cart-icon" onclick="toggleCart()">
+                        <i class="bi bi-cart"></i>
+                        <span class="cart-count">3</span> <!-- Item count -->
+                    </a>
+                    <div class="cart-dropdown">
+                        <p>3 items in your cart</p>
+                        <button class="checkout-btn">Checkout</button>
+                    </div>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="categories-link" onclick="toggleCategories()">
+                        Categories
+                    </a>
+                    <div class="categories-dropdown">
+                        <ul>
+                            <li><a href="#">Category 1</a></li>
+                            <li><a href="#">Category 2</a></li>
+                            <li><a href="#">Category 3</a></li>
+                            <li><a href="#">Category 4</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <script src="script.js"></script>
+</body>
+</html>

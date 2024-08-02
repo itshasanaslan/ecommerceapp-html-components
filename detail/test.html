@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.product-detail {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-images {
+    display: flex;
+    flex-direction: row;
+    margin-right: 20px;
+}
+
+.thumbnail-gallery {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.thumbnail-gallery img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.thumbnail-gallery img.active {
+    border-color: #000;
+}
+
+.main-image-container {
+    position: relative;
+}
+
+.main-image-container img {
+    width: 500px;
+    height: auto;
+}
+
+.index-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.prev-button, .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.prev-button {
+    left: -30px;
+}
+
+.next-button {
+    right: -30px;
+}
+
+.product-info {
+    max-width: 600px;
+}
+
+.tags {
+    margin-top: 10px;
+}
+
+.tag {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.tag:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.product-price {
+    color: #28a745;
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.product-review {
+    display: flex;
+    align-items: center;
+}
+
+.stars {
+    color: gold;
+    margin-right: 10px;
+}
+
+.review-comments {
+    color: #555;
+}
+
+.add-to-cart {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart:hover {
+    background-color: #218838;
+}
+
+#add-review {
+    margin-top: 20px;
+}
+
+#review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#review-form input, #review-form textarea, #review-form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+#review-form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#review-form button:hover {
+    background-color: #0056b3;
+}
+
+#reviews-list {
+    margin-top: 20px;
+}
+
+.review {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.review-stars {
+    color: gold;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.product-item {
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product-item img {
+    width: 100%;
+    height: auto;
+}
+
+.product-item h4 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.product-item .product-price {
+    color: #28a745;
+    font-size: 16px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.popup-content {
+    max-width: 90%;
+    max-height: 80%;
+    animation: zoom 0.6s;
+}
+
+@keyframes zoom {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
+}
+
+.popup-prev-button, .popup-next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.popup-prev-button {
+    left: 20px;
+}
+
+.popup-next-button {
+    right: 20px;
+}
+
+    </style>
+
+</head>
+<body>
+    <div class="product-detail">
+        <div class="product-images">
+            <div class="thumbnail-gallery" id="thumbnail-gallery">
+                <!-- Thumbnails will be added here dynamically -->
+            </div>
+            <div class="main-image-container">
+                <img id="main-image" src="https://img-new.cgtrader.com/items/5124845/b711ae2b1a/harry-potter-sculpture-collectible-3d-model-b711ae2b1a.jpg" alt="Product Image">
+                <div class="index-indicator" id="index-indicator">1 / 4</div>
+                <button class="prev-button" id="prev-button">&#10094;</button>
+                <button class="next-button" id="next-button">&#10095;</button>
+            </div>
+        </div>
+        <div class="product-info">
+            <h1 id="product-title">Harry Potter Sculpture Collectible</h1>
+            <div class="tags" id="tags">
+                <!-- Tags will be added here dynamically -->
+            </div>
+            <p class="company-name" id="company-name">TechCorp</p>
+            <p class="product-price" id="product-price">$199.99</p>
+            <div class="product-review">
+                <span class="stars" id="product-stars">★★★★★</span>
+                <span class="review-comments" id="review-comments">(50 reviews)</span>
+            </div>
+            <p class="product-description" id="product-description">
+                Experience the magic of Harry Potter with this detailed sculpture collectible. Perfect for fans and collectors alike.
+            </p>
+            <button class="add-to-cart" id="add-to-cart">Add to Cart</button>
+            <div id="add-review">
+                <button id="show-review-form">Add Review</button>
+                <form id="review-form" style="display: none;">
+                    <input type="text" id="review-username" placeholder="First Name" required>
+                    <input type="text" id="review-lastname" placeholder="Last Name" required>
+                    <textarea id="review-text" placeholder="Your review" required></textarea>
+                    <select id="review-stars">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div id="reviews-list">
+                <!-- Reviews will be added here dynamically -->
+            </div>
+            <div id="more-from-shop">
+                <h3>More from this shop</h3>
+                <div class="product-list">
+                    <!-- Shop products will be added here dynamically -->
+                </div>
+            </div>
+            <div id="you-may-like">
+                <h3>You may like these products too</h3>
+                <div class="product-list">
+                    <!-- Related products will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="popup" id="popup">
+        <span class="close" id="popup-close">&times;</span>
+        <img class="popup-content" id="popup-image">
+        <button class="popup-prev-button" id="popup-prev-button">&#10094;</button>
+        <button class="popup-next-button" id="popup-next-button">&#10095;</button>
+    </div>
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const images = [
+        'https://img-new.cgtrader.com/items/5124845/b711ae2b1a/harry-potter-sculpture-collectible-3d-model-b711ae2b1a.jpg',
+        'https://img-new.cgtrader.com/items/5124845/37880888e3/harry-potter-sculpture-collectible-3d-model-37880888e3.jpg',
+        'https://img-new.cgtrader.com/items/5124845/20840b6608/harry-potter-sculpture-collectible-3d-model-20840b6608.jpg',
+        'https://img-new.cgtrader.com/items/5124845/5574a6f8ce/harry-potter-sculpture-collectible-3d-model-5574a6f8ce.jpg'
+    ];
+
+    const tags = ['Harry Potter', 'Movies', '3D Modelling'];
+
+    const reviews = [
+        { username: 'John', lastname: 'Doe', text: 'Amazing product, highly recommend!', stars: 5 },
+        { username: 'Jane', lastname: 'Smith', text: 'Very detailed and well-crafted.', stars: 4 },
+        { username: 'Alice', lastname: 'Johnson', text: 'Good value for money.', stars: 4 }
+    ];
+
+    const shopProducts = [
+        { title: 'Hermione Granger Sculpture', price: '$149.99', image: 'https://img-new.cgtrader.com/items/5124845/7d5b9fdb18/hermione-granger-sculpture-3d-model-7d5b9fdb18.jpg' },
+        { title: 'Dumbledore Sculpture', price: '$189.99', image: 'https://img-new.cgtrader.com/items/5124845/93e0dfd7f5/dumbledore-sculpture-3d-model-93e0dfd7f5.jpg' },
+        { title: 'Hogwarts Castle Model', price: '$299.99', image: 'https://img-new.cgtrader.com/items/5124845/5b429c4a54/hogwarts-castle-model-3d-model-5b429c4a54.jpg' },
+        { title: 'Voldemort Sculpture', price: '$199.99', image: 'https://img-new.cgtrader.com/items/5124845/2f0e874bd0/voldemort-sculpture-3d-model-2f0e874bd0.jpg' },
+        { title: 'Severus Snape Sculpture', price: '$169.99', image: 'https://img-new.cgtrader.com/items/5124845/129c27e7a1/severus-snape-sculpture-3d-model-129c27e7a1.jpg' },
+    ];
+
+    const relatedProducts = [
+        { title: 'Lord of the Rings Ring', price: '$49.99', image: 'https://img-new.cgtrader.com/items/5124845/1f9e4761a6/lord-of-the-rings-ring-3d-model-1f9e4761a6.jpg' },
+        { title: 'Gandalf Sculpture', price: '$179.99', image: 'https://img-new.cgtrader.com/items/5124845/8a0d18c6e8/gandalf-sculpture-3d-model-8a0d18c6e8.jpg' },
+        { title: 'Frodo Baggins Sculpture', price: '$149.99', image: 'https://img-new.cgtrader.com/items/5124845/7b4f14f848/frodo-baggins-sculpture-3d-model-7b4f14f848.jpg' },
+        { title: 'Hobbiton Model', price: '$249.99', image: 'https://img-new.cgtrader.com/items/5124845/6b7a18a8a9/hobbiton-model-3d-model-6b7a18a8a9.jpg' },
+        { title: 'Legolas Sculpture', price: '$189.99', image: 'https://img-new.cgtrader.com/items/5124845/5a7b18c4b5/legolas-sculpture-3d-model-5a7b18c4b5.jpg' },
+    ];
+
+    let currentIndex = 0;
+    const mainImage = document.getElementById('main-image');
+    const indexIndicator = document.getElementById('index-indicator');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+    const popup = document.getElementById('popup');
+    const popupImage = document.getElementById('popup-image');
+    const popupClose = document.getElementById('popup-close');
+    const popupPrevButton = document.getElementById('popup-prev-button');
+    const popupNextButton = document.getElementById('popup-next-button');
+    const thumbnailGallery = document.getElementById('thumbnail-gallery');
+    const tagsContainer = document.getElementById('tags');
+    const showReviewForm = document.getElementById('show-review-form');
+    const reviewForm = document.getElementById('review-form');
+    const addReviewSection = document.getElementById('add-review');
+    const reviewUsername = document.getElementById('review-username');
+    const reviewLastname = document.getElementById('review-lastname');
+    const reviewText = document.getElementById('review-text');
+    const reviewStars = document.getElementById('review-stars');
+    const reviewsList = document.getElementById('reviews-list');
+    const moreFromShop = document.querySelector('#more-from-shop .product-list');
+    const youMayLike = document.querySelector('#you-may-like .product-list');
+
+    function updateImage() {
+        mainImage.src = images[currentIndex];
+        indexIndicator.textContent = `${currentIndex + 1} / ${images.length}`;
+        updateActiveThumbnail();
+    }
+
+    function showNextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateImage();
+    }
+
+    function showPrevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateImage();
+    }
+
+    function updatePopupImage() {
+        popupImage.src = images[currentIndex];
+    }
+
+    function renderTags() {
+        tagsContainer.innerHTML = '';
+        tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'tag';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+        });
+    }
+
+    function renderReviews() {
+        reviewsList.innerHTML = '';
+        reviews.forEach(review => {
+            const reviewElement = document.createElement('div');
+            reviewElement.className = 'review';
+            reviewElement.innerHTML = `
+                <div class="review-header">
+                    <span class="review-username">${review.username} ${review.lastname}</span>
+                    <span class="review-stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</span>
+                </div>
+                <p class="review-text">${review.text}</p>
+            `;
+            reviewsList.appendChild(reviewElement);
+        });
+    }
+
+    function renderThumbnailGallery() {
+        thumbnailGallery.innerHTML = '';
+        images.forEach((image, index) => {
+            const thumbnail = document.createElement('img');
+            thumbnail.src = image;
+            thumbnail.alt = `Thumbnail ${index + 1}`;
+            thumbnail.classList.add(index === currentIndex ? 'active' : '');
+            thumbnail.addEventListener('click', () => {
+                currentIndex = index;
+                updateImage();
+                updatePopupImage();
+            });
+            thumbnailGallery.appendChild(thumbnail);
+        });
+    }
+
+    function updateActiveThumbnail() {
+        const thumbnails = thumbnailGallery.querySelectorAll('img');
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function renderProductList(container, products) {
+        container.innerHTML = '';
+        products.forEach(product => {
+            const productItem = document.createElement('div');
+            productItem.classList.add('product-item');
+            productItem.innerHTML = `
+                <img src="${product.image}" alt="${product.title}">
+                <h4>${product.title}</h4>
+                <p class="product-price">${product.price}</p>
+            `;
+            container.appendChild(productItem);
+        });
+    }
+
+    setInterval(showNextImage, 4000);
+
+    mainImage.addEventListener('click', () => {
+        popup.style.display = 'flex';
+        updatePopupImage();
+    });
+
+    popupClose.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+
+    popupPrevButton.addEventListener('click', showPrevImage);
+    popupNextButton.addEventListener('click', showNextImage);
+
+    prevButton.addEventListener('click', showPrevImage);
+    nextButton.addEventListener('click', showNextImage);
+
+    showReviewForm.addEventListener('click', () => {
+        reviewForm.style.display = reviewForm.style.display === 'none' ? 'block' : 'none';
+    });
+
+    reviewForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const newReview = {
+            username: reviewUsername.value,
+            lastname: reviewLastname.value,
+            text: reviewText.value,
+            stars: parseInt(reviewStars.value)
+        };
+        reviews.push(newReview);
+        renderReviews();
+        reviewForm.reset();
+        reviewForm.style.display = 'none';
+    });
+
+    renderTags();
+    renderReviews();
+    renderThumbnailGallery();
+    renderProductList(moreFromShop, shopProducts);
+    renderProductList(youMayLike, relatedProducts);
+    updateImage();
+});
+
+    </script>
+</body>
+</html>

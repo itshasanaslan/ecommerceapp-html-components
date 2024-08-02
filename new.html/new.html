@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="card.css">
+    <style>
+        @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+        .card-img-top {
+            height: 300px;
+        }
+        .card-img-top:hover{
+
+        }
+
+      
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body>
+    
+    <div class="container">
+        <div class="row mt-5">
+          <div class="col-lg-3 col-sm-6" role="button" onclick="test()">
+            <div class="card border-0" style="width: 18rem;">
+                    <img src="witch.jpg" class="card-img-top"   alt="...">
+                    <div class="card-bottom fs-3">
+                      <i class="bi bi-heart-fill" ></i>
+                        <br>
+             
+                        </div>
+              <div class="card-body ">
+                <p class="mb-0 card-text text-nowrap bd-highlight text-truncate" style="font-size: 14px;">LOTR The Witch King of Angmar The Lord of the Rings.</p>
+                <p  class="text-nowrap bd-highlight text-truncate fs-6 mb-1" style="font-size: 12.99px;font-weight: 500;">4.8★(2.4k) • digitalblackmarket</p>
+                <h5 class="display">$14.29</h5>
+                <i class="bi bi-cloud-arrow-down-fill" style="color:blue;"></i><span>  Digital Download</span>
+                <button class="btn  btn-outline-secondary fw-bold" onclick="test2()">   
+                    <i class="bi bi-cart"></i> 
+                    Add to cart
+                    
+                </button>
+             
+              </div>
+            </div>
+            <!--col end botton-->
+          </div>
+          <div class="col-lg-3 col-sm-6" role="button">
+            <div class="card border-0" style="width: 18rem;">
+                    <img src="gandalf.jpg" class="card-img-top"   alt="...">
+                    <div class="card-bottom fs-3">
+                      <i class="bi bi-heart-fill" ></i>
+                        <br>
+             
+                        </div>
+              <div class="card-body ">
+                <p class="mb-0 card-text text-nowrap bd-highlight text-truncate" style="font-size: 14px;">LOTR The Witch King of Angmar The Lord of the Rings.</p>
+                <p  class="text-nowrap bd-highlight text-truncate fs-6 mb-1" style="font-size: 12.99px;font-weight: 500;">4.8★(2.4k) • digitalblackmarket</p>
+                <h5 class="display">$14.29</h5>
+                <i class="bi bi-cloud-arrow-down-fill" style="color:blue;"></i><span>  Digital Download</span>
+                <button class="btn  btn-outline-secondary fw-bold">   
+                    <i class="bi bi-cart"></i> 
+                    Add to cart
+                    
+                </button>
+             
+              </div>
+            </div>
+            <!--col end bottom-->
+          </div>
+          <div class="col-lg-3 col-sm-6" role="button">
+            <div class="card border-0" style="width: 18rem;">
+                    <img src="spider.jpg" class="card-img-top"   alt="...">
+                    <div class="card-bottom fs-3">
+                      <i class="bi bi-heart-fill" ></i>
+                        <br>
+             
+                        </div>
+              <div class="card-body ">
+                <p class="mb-0 card-text text-nowrap bd-highlight text-truncate" style="font-size: 14px;">LOTR The Witch King of Angmar The Lord of the Rings.</p>
+                <p  class="text-nowrap bd-highlight text-truncate fs-6 mb-1" style="font-size: 12.99px;font-weight: 500;">4.8★(2.4k) • digitalblackmarket</p>
+                <h5 class="display">$14.29</h5>
+                <i class="bi bi-cloud-arrow-down-fill" style="color:blue;"></i><span>  Digital Download</span>
+                <button class="btn  btn-outline-secondary fw-bold">   
+                    <i class="bi bi-cart"></i> 
+                    Add to cart
+                    
+                </button>
+             
+              </div>
+            </div>
+            <!--col end botton-->
+          </div>
+                <!--row end bottom-->
+          </div>
+    
+        </div>
+        <!--container end bottom-->
+        </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+  <script>
+    let cartClicked  = false;
+    function test(){
+        if (!cartClicked){
+            alert("div clicked");
+        }
+        else {
+            cartClicked = false;
+        }
+    }
+    function test2(){
+        cartClicked = true;
+        alert("Cart");
+    }
+  </script>
+</html>

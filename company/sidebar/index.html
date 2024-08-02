@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Interface Sidebar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-orange sidebar collapse">
+                <div class="sidebar-sticky">
+                    <h2 class="text-center text-white mt-3">Store Dashboard</h2>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#" onclick="showSection('addItems')">
+                                <i class="fas fa-plus-circle"></i> Add Items
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#" onclick="showSection('listItems')">
+                                <i class="fas fa-list"></i> List Items
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#" onclick="showSection('trackOrders')">
+                                <i class="fas fa-truck"></i> Track Orders
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#" onclick="showSection('messages')">
+                                <i class="fas fa-envelope"></i> Messages
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 main-content">
+                <button id="sidebarToggle" class="btn btn-orange mt-3"><i class="fas fa-bars"></i></button>
+                <div id="addItems" class="content-section">
+                    <h3>Add Items</h3>
+                    <form id="addItemForm">
+                        <div class="form-group">
+                            <label for="itemName">Item Name:</label>
+                            <input type="text" class="form-control" id="itemName" name="itemName">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemPrice">Item Price:</label>
+                            <input type="number" class="form-control" id="itemPrice" name="itemPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="itemDescription">Item Description:</label>
+                            <textarea class="form-control" id="itemDescription" name="itemDescription"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-orange">Add Item</button>
+                    </form>
+                </div>
+                <div id="listItems" class="content-section" style="display:none;">
+                    <h3>List Items</h3>
+                    <ul id="itemsList" class="list-group">
+                        <!-- Items will be listed here -->
+                    </ul>
+                </div>
+                <div id="trackOrders" class="content-section" style="display:none;">
+                    <h3>Track Orders</h3>
+                    <ul id="ordersList" class="list-group">
+                        <!-- Orders will be listed here -->
+                    </ul>
+                </div>
+                <div id="messages" class="content-section" style="display:none;">
+                    <h3>Messages</h3>
+                    <div id="messagesList">
+                        <!-- Messages will be listed here -->
+                    </div>
+                    <form id="sendMessageForm" class="form-inline mt-3">
+                        <input type="text" class="form-control mr-2" id="messageInput" placeholder="Type your message">
+                        <button type="submit" class="btn btn-orange">Send</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .product-images img {
+            width: 50px;
+            height: 50px;
+            margin-right: 5px;
+            transition: transform 0.3s;
+            border-radius: 5px;
+        }
+        .product-images img:hover {
+            transform: scale(1.2);
+        }
+        .product-images .plus-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #e9ecef;
+            margin-right: 5px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .card {
+            transition: box-shadow 0.3s, transform 0.3s;
+            border: none;
+            border-radius: 15px;
+        }
+        .card:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-info {
+            flex: 1;
+        }
+        .order-actions .btn {
+            margin-left: 10px;
+        }
+        .badge-success {
+            background-color: #28a745;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <!-- Example Order Card -->
+            <div class="col-md-12 mb-4">
+                <div class="card p-3">
+                    <div class="card-body">
+                        <div class="order-details">
+                            <div class="order-info">
+                                <h5 class="card-title"><i class="fas fa-calendar-alt"></i> Order Date: 2023-06-21</h5>
+                                <p class="card-text"><i class="fas fa-info-circle"></i> Status: <span class="badge badge-success">Approved</span></p>
+                                <p class="card-text"><i class="fas fa-map-marker-alt"></i> Address: Home</p>
+                                <p class="card-text"><i class="fas fa-dollar-sign"></i> Total Price: $150.00</p>
+                                <div class="product-images mt-3">
+                                    <img src="https://via.placeholder.com/50" alt="Product 1">
+                                    <img src="https://via.placeholder.com/50" alt="Product 2">
+                                    <img src="https://via.placeholder.com/50" alt="Product 3">
+                                    <div class="plus-more">+2</div>
+                                </div>
+                            </div>
+                            <div class="order-actions">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#orderDetailsModal">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat the above block for each order -->
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailsModalLabel">Order Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Order details content goes here -->
+                    <p>Order Date: 2023-06-21</p>
+                    <p>Status: Approved</p>
+                    <p>Address: Home</p>
+                    <p>Total Price: $150.00</p>
+                    <p>Expected Delivery: 2023-07-01</p>
+                    <div class="product-images mt-3">
+                        <img src="https://via.placeholder.com/50" alt="Product 1">
+                        <img src="https://via.placeholder.com/50" alt="Product 2">
+                        <img src="https://via.placeholder.com/50" alt="Product 3">
+                        <img src="https://via.placeholder.com/50" alt="Product 4">
+                        <img src="https://via.placeholder.com/50" alt="Product 5">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
